@@ -15,35 +15,21 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 ##############################################################################
 
-import pygame
-from pygame import display
-from pygame.locals import QUIT
-from globals import get_window_dim
-from testzone import get_test_zone
+import random
+from zone import Tile, Zone
 
 
-def main():
-    '''(NoneType) -> int'''
-    WINDOW_W, WINDOW_H = get_window_dim()
+def get_test_zone():
+    '''(NoneType) -> Zone'''
+    test_zone = Zone()
 
-    pygame.init()
+    random.seed()
 
-    window = display.set_mode((WINDOW_W, WINDOW_H))
+    MIN = -128
+    MAX = 127
 
-    test_zone = get_test_zone()
-    test_zone.render(window)
+    for i in range(test_zone.width):
+        for j in range(test_zone.height):
+            test_zone.map[i][j].value = random.randint(MIN, MAX)
 
-    display.flip()
-
-    running = True
-    while running:
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                running = False
-
-    pygame.quit()
-
-    return 0
-
-if __name__ == "__main__":
-    print(main()) # DEBUG ####################################################
+    return test_zone
