@@ -26,3 +26,11 @@ def get_tile_size():
     '''(NoneType) -> int
     Returns global tile size. Tiles are square.'''
     return 50
+
+def get_zone_dim():
+    '''(NoneType) -> tuple
+    Returns (MAP_W, MAP_H). Dimensions relative to window.'''
+    RIGHT_PADDING_W = get_tile_size() * 2
+    WINDOW_W, WINDOW_HEIGHT = get_window_dim()
+
+    return (WINDOW_W - RIGHT_PADDING_W, WINDOW_HEIGHT)

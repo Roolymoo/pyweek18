@@ -15,27 +15,30 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 ##############################################################################
 
-from pygame import draw
-from globals import get_window_dim, get_tile_size
+from pygame import Rect, draw
+from globals import get_window_dim, get_tile_size, get_zone_dim
 from tile import Tile
 
 class Zone:
     def __init__(self):
         '''(Zone) -> NoneType'''
-        WINDOW_W, WINDOW_H = get_window_dim()
+        WIDTH, HEIGHT = get_zone_dim()
         TILE_SIZE = get_tile_size()
-        NUM_TILES_W = int(WINDOW_W / TILE_SIZE) # Assumed to get integer in division
-        NUM_TILES_H = int(WINDOW_H / TILE_SIZE)
+        NUM_TILES_W = int(WIDTH / TILE_SIZE) # Assumed to get integer in division
+        NUM_TILES_H = int(HEIGHT / TILE_SIZE)
 
+        self.rect = Rect(0, 0, WIDTH, HEIGHT)
         self.num_tiles_w = NUM_TILES_W
         self.num_tiles_h = NUM_TILES_H
-        self.map = [[Tile(i * 50, j * 50) for j in range(NUM_TILES_H)] for i in range(NUM_TILES_W)]
+        self.map = [[Tile(i * 50, j * 50) for j in range(NUM_TILES_H)] \
+                for i in range(NUM_TILES_W)]
 
     def render(self, window):
         '''(Zone, Surface) -> NoneType
         Renders all Tiles in self.map.'''
         WHITE = (255, 255, 255)
-        LINE_WIDTH, LINE_HEIGHT = get_window_dim()
+        LINE_WIDTH = self.rect.w
+        LINE_HEIGHT = self.rect.h
         TILE_SIZE = get_tile_size()
 
         # Draw tiles and lines defining tiles
