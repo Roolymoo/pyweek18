@@ -16,6 +16,7 @@
 ##############################################################################
 
 import random
+import os.path
 from zone import Tile, Zone
 
 
@@ -25,11 +26,23 @@ def get_test_zone():
 
     random.seed()
 
-    MIN = -128
-    MAX = 127
+    MIN = -20
+    MAX = 20
 
-    for i in range(test_zone.width):
-        for j in range(test_zone.height):
+    for i in range(test_zone.num_tiles_w):
+        for j in range(test_zone.num_tiles_h):
             test_zone.map[i][j].value = random.randint(MIN, MAX)
+
+    # Make some tiles walls
+    WALL_PATH = os.path.join("art", "Wall2.png")
+    WALL_V_DISPLACEMENT = int(test_zone.num_tiles_h / 3)
+    for i in range(int(test_zone.num_tiles_w / 2)):
+        test_zone.map[i][WALL_V_DISPLACEMENT].load_img(WALL_PATH)
+        test_zone.map[i][WALL_V_DISPLACEMENT * 2].load_img(WALL_PATH)
+    j = WALL_V_DISPLACEMENT
+    while j <= WALL_V_DISPLACEMENT * 2:
+        # Use last used i
+        test_zone.map[i][j].load_img(WALL_PATH)
+        j += 1
 
     return test_zone

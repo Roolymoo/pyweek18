@@ -45,8 +45,14 @@ class Tile:
         FONT_SIZE = 20
         WHITE = (255, 255, 255)
 
+        # Prepare text for value
         FONT = Font(None, FONT_SIZE) # Use default font
         SURFACE = FONT.render(str(self.value), False, WHITE)
+
+        # Render img if there is one
+        if self.img:
+            window.blit(self.img, self.rect)
+        # Render value text
         window.blit(SURFACE, (self.rect.x + PADDING_W, self.rect.y + PADDING_H))
 
 
