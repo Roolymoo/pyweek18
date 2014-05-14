@@ -15,46 +15,9 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 ##############################################################################
 
-from pygame import Rect, draw, image
-from pygame.font import Font
+from pygame import draw
 from globals import get_window_dim, get_tile_size
-
-
-class Tile:
-    def __init__(self, X, Y):
-        '''(Tile, int, int) -> NoneType
-        (X,Y) top-left coordinate of tile.'''
-        SIZE = get_tile_size()
-
-        self.rect = Rect(X, Y, SIZE, SIZE)
-        self.img = None
-        self.value = 0
-
-    def load_img(self, IMG_PATH):
-        '''(Tile, str) -> NoneType
-        Loads img given by IMG_PATH into self.img as Surface. Assumes
-        IMG_PATH valid.'''
-        self.img = image.load(IMG_PATH)
-
-    def render(self, window):
-        '''(Zone, Surface) -> NoneType
-        Draws self.value is a number with padding given below within self.rect
-        relative to window.'''
-        PADDING_W = 20
-        PADDING_H = 20
-        FONT_SIZE = 20
-        WHITE = (255, 255, 255)
-
-        # Prepare text for value
-        FONT = Font(None, FONT_SIZE) # Use default font
-        SURFACE = FONT.render(str(self.value), False, WHITE)
-
-        # Render img if there is one
-        if self.img:
-            window.blit(self.img, self.rect)
-        # Render value text
-        window.blit(SURFACE, (self.rect.x + PADDING_W, self.rect.y + PADDING_H))
-
+from tile import Tile
 
 class Zone:
     def __init__(self):
