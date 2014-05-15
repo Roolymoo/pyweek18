@@ -34,7 +34,7 @@ def get_test_zone():
             test_zone.map[i][j].value = random.randint(MIN, MAX)
 
     # Make some tiles walls
-    WALL_PATH = os.path.join("art", "Wall2.png")
+    WALL_PATH = os.path.join("art", "Stone.png")
     WALL_V_DISPLACEMENT = int(test_zone.num_tiles_h / 3)
     for i in range(int(test_zone.num_tiles_w / 2)):
         test_zone.map[i][WALL_V_DISPLACEMENT].load_img(WALL_PATH)
