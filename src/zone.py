@@ -17,7 +17,7 @@
 
 from pygame import Rect, draw
 from globals import get_window_dim, get_tile_size, get_zone_dim
-from tile import Tile
+from tile import StaticTile
 
 class Zone:
     def __init__(self):
@@ -30,7 +30,7 @@ class Zone:
         self.rect = Rect(0, 0, WIDTH, HEIGHT)
         self.num_tiles_w = NUM_TILES_W
         self.num_tiles_h = NUM_TILES_H
-        self.map = [[Tile(i * 50, j * 50) for j in range(NUM_TILES_H)] \
+        self.map = [[StaticTile(i * 50, j * 50) for j in range(NUM_TILES_H)] \
                 for i in range(NUM_TILES_W)]
 
     def render(self, window):

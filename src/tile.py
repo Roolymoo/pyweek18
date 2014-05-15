@@ -20,7 +20,8 @@ from pygame.font import Font
 from globals import get_tile_size
 
 
-class Tile:
+class StaticTile:
+    '''For static entities, such as walls or floors.'''
     def __init__(self, X, Y):
         '''(Tile, int, int) -> NoneType
         (X,Y) top-left coordinate of tile.'''
@@ -28,7 +29,7 @@ class Tile:
 
         self.rect = Rect(X, Y, SIZE, SIZE)
         self.img = None
-        self.value = 0
+        self.value = None # In case text value should not be rendered
 
     def load_img(self, IMG_PATH):
         '''(Tile, str) -> NoneType
@@ -38,19 +39,21 @@ class Tile:
 
     def render(self, window):
         '''(Zone, Surface) -> NoneType
-        Draws self.value is a number with padding given below within self.rect
-        relative to window.'''
+        Renders self.img if not None, then renders self.value in text on top
+        if self.value is not None.'''
         PADDING_W = 20
         PADDING_H = 20
         FONT_SIZE = 20
         WHITE = (255, 255, 255)
 
-        # Prepare text for value
-        FONT = Font(None, FONT_SIZE) # Use default font
-        SURFACE = FONT.render(str(self.value), False, WHITE)
-
-        # Render img if there is one
+        # Render img
         if self.img:
             window.blit(self.img, self.rect)
-        # Render value text
-        window.blit(SURFACE, (self.rect.x + PADDING_W, self.rect.y + PADDING_H))
+
+        # Prepare text for value
+        if self.value:
+            # Load the font into a Surface
+            FONT = Font(None, FONT_SIZE) # Use default font
+            SURFACE = FONT.render(str(self.value), False, WHITE)
+            # Render the font
+            window.blit(SURFACE, (self.rect.x + PADDING_W, self.rect.y + PADDING_H))
