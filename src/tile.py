@@ -20,8 +20,8 @@ from pygame.font import Font
 from globals import get_tile_size
 
 
-class StaticTile:
-    '''For static entities, such as walls or floors.'''
+class Tile:
+    '''Base object for inheritance for tiles actually used in game.'''
     def __init__(self, X, Y):
         '''(Tile, int, int) -> NoneType
         (X,Y) top-left coordinate of tile.'''
@@ -30,6 +30,7 @@ class StaticTile:
         self.rect = Rect(X, Y, SIZE, SIZE)
         self.img = None
         self.value = None # In case text value should not be rendered
+        self.obstacle = False
 
     def load_img(self, IMG_PATH):
         '''(Tile, str) -> NoneType
@@ -37,8 +38,16 @@ class StaticTile:
         IMG_PATH valid.'''
         self.img = image.load(IMG_PATH)
 
+
+class StaticTile(Tile):
+    '''For static entities, such as walls or floors.'''
+    def __init__(self, X, Y):
+        '''(Tile, int, int) -> NoneType
+        (X,Y) top-left coordinate of tile.'''
+        Tile.__init__(self, X, Y)
+
     def render(self, window):
-        '''(Zone, Surface) -> NoneType
+        '''(StaticTile, Surface) -> NoneType
         Renders self.img if not None, then renders self.value in text on top
         if self.value is not None.'''
         PADDING_W = 20
@@ -51,7 +60,7 @@ class StaticTile:
             window.blit(self.img, self.rect)
 
         # Prepare text for value
-        if self.value:
+        if self.value != None:
             # Load the font into a Surface
             FONT = Font(None, FONT_SIZE) # Use default font
             SURFACE = FONT.render(str(self.value), False, WHITE)
