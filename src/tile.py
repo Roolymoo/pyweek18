@@ -31,6 +31,8 @@ class Tile:
         self.img = None
         self.value = None # In case text value should not be rendered
         self.obstacle = False
+        self.trap = False
+        self.trapimg = None
 
     def load_img(self, IMG_PATH):
         '''(Tile, str) -> NoneType
@@ -46,6 +48,16 @@ class StaticTile(Tile):
         (X,Y) top-left coordinate of tile.'''
         Tile.__init__(self, X, Y)
 
+    def set_trap(self, type):
+        '''(StaticTile, Surface) -> NoneType
+        '''
+        self.trap = True
+
+        if (type == "FIRE"):
+            self.trapimg = "Fire2.png"
+        else:
+            self.trapimg = "Fire2.png"
+
     def render(self, window):
         '''(StaticTile, Surface) -> NoneType
         Renders self.img if not None, then renders self.value in text on top
@@ -59,6 +71,10 @@ class StaticTile(Tile):
         if self.img:
             window.blit(self.img, self.rect)
 
+        # Then render the trap
+        if self.trapimg:
+            window.blit(self.trapimg, self.rect)
+
         # Prepare text for value
         if self.value != None:
             # Load the font into a Surface
@@ -66,3 +82,4 @@ class StaticTile(Tile):
             SURFACE = FONT.render(str(self.value), False, WHITE)
             # Render the font
             window.blit(SURFACE, (self.rect.x + PADDING_W, self.rect.y + PADDING_H))
+
