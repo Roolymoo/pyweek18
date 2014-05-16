@@ -155,11 +155,7 @@ class Zone:
 
         # Draw tiles and lines defining tiles
         for i in range(self.num_tiles_w):
-            # Draw the vertical line for these tiles
-            draw.line(window, WHITE, (i * TILE_SIZE, 0), (i * TILE_SIZE, LINE_HEIGHT))
             for j in range(self.num_tiles_h):
-                # Draw the horizontal line for these tiles
-                draw.line(window, WHITE, (0, j * TILE_SIZE), (LINE_WIDTH, j * TILE_SIZE))
                 # Draw the tile
                 self.map[i][j].render(window)
 
