@@ -20,7 +20,6 @@ from pygame.font import Font
 from globals import get_tile_size
 from img import load_img
 
-
 class Tile:
     def __init__(self, X, Y):
         '''(Tile, int, int) -> NoneType
@@ -33,7 +32,6 @@ class Tile:
         self.obstacle = False
         self.trap = False
         self.trapimg = None
-        self.trap_active = False
 
     def set_trap(self, type):
         '''(StaticTile, Surface) -> NoneType
@@ -42,8 +40,12 @@ class Tile:
 
         if (type == "FIRE"):
             self.trapimg = load_img("Fire2.png")
+        elif (type == "SPIKE"):
+            self.trapimg = load_img("Spike.png")
+        elif (type == "POOP"):
+            self.trapimg = load_img("Poop.png")
         else:
-            self.trapimg = load_img("Fire2.png")
+            self.trapimg = load_img("Poop.png")
 
     def load_img(self, IMG_N):
         '''(Tile, str) -> NoneType
@@ -65,7 +67,7 @@ class Tile:
             window.blit(self.img, self.rect)
 
         # Then render the trap
-        if self.trap_active:
+        if self.trap:
             window.blit(self.trapimg, self.rect)
 
         # Prepare text for value

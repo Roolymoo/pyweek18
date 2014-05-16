@@ -45,10 +45,6 @@ class Player:
         Draws the player image onto the Surface window.  Assumes coordinates
         of the player are valid.
         '''
-        PADDING_W = 20
-        PADDING_H = 20
-        WHITE = (255, 255, 255)
-
         # Render img if there is one - there better be one
         if self.img:
             window.blit(self.img, self.rect)
@@ -78,7 +74,6 @@ class Player:
         new_x = self.x
         new_y = self.y
 
-        zone.map[new_x][new_y].render(window)
         #find the new coordinates
         if (direction == "LEFT"):
             if new_x != 0:
@@ -101,7 +96,9 @@ class Player:
         if (new_tile.obstacle):
             return
 
-        elif (new_tile.trap):
+        #otherwise, erase the current space and move to new space
+        zone.map[self.x][self.y].render(window)
+        if (new_tile.trap):
             self.change_sum(new_tile.value, zone, window)
 
             #Remove the trap and it is now a normal floor tile
@@ -111,7 +108,6 @@ class Player:
         else:
             self.x = new_x
             self.y = new_y
-
         new_tile.render(window)
 
         self.update_rect()

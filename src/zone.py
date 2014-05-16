@@ -104,8 +104,19 @@ class Zone:
 
                             tile_s = Tile(j * TILE_SIZE, i * TILE_SIZE)
                             img_index = int(tile[1])
+
+                            #loads the image of the tile and gets a tile for whatever type
                             if img_index:
+                                #2 is floor - not sure if we need this anymore
+                                if img_index == 1:
+                                    tile_s.obstacle = True
+                                elif img_index == 2:
+                                    print("Im a princess!")
+                                else:
+                                    tile_s.set_trap("FIRE")
                                 tile_s.load_img(img_list[img_index])
+
+                            #gives the tile a value
                             if tile[2] == "?":
                                 # Randomize value given by min, max
                                 tile_s.value = random.randint(min, max)
