@@ -19,7 +19,7 @@ import pygame
 from pygame import display
 from pygame.locals import QUIT
 from globals import get_window_dim
-from testzone import get_test_zone
+from testzone import get_test_zone2
 
 
 def main():
@@ -30,7 +30,7 @@ def main():
 
     window = display.set_mode((WINDOW_W, WINDOW_H))
 
-    test_zone = get_test_zone()
+    test_zone = get_test_zone2()
     test_zone.render(window)
 
     display.flip()

@@ -20,7 +20,7 @@ import os.path
 from zone import StaticTile, Zone
 
 
-def get_test_zone():
+def get_test_zone1():
     '''(NoneType) -> Zone'''
     test_zone = Zone()
 
@@ -44,5 +44,13 @@ def get_test_zone():
         # Use last used i
         test_zone.map[i][j].load_img(WALL_PATH)
         j += 1
+
+    return test_zone
+
+def get_test_zone2():
+    '''(NoneType) -> Zone'''
+    test_zone = Zone()
+
+    test_zone.load("test.txt")
 
     return test_zone

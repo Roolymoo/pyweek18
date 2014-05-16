@@ -16,6 +16,7 @@
 ##############################################################################
 
 import os.path
+import random
 from pygame import Rect, draw
 from globals import get_window_dim, get_tile_size, get_zone_dim
 from tile import StaticTile
@@ -36,14 +37,19 @@ class Zone:
 
     def load(self, ZONE_N):
         '''(Zone, str) -> NoneType
-        Loads Zone from Zone given in ZONE_N. Assumes success.'''
-        # TODO - not finished
+        Loads Zone from Zone given in ZONE_N. Assumes success. See .txt file
+        about how to make maps for this method.'''
+        # TODO - make this make sense to people other than Lucas
         TILE_SIZE = get_tile_size()
+
+        # Seed random in case random values are to be generated
+        random.seed()
 
         PATH = os.path.join("data", "zone", ZONE_N)
         with open(PATH) as FILE:
             min = None # For tile value rand generation of ? supplied for tile
             max = None
+            img_list = [None] # 0 is given to use no img
 
             line = FILE.readline()
             while line:
@@ -52,20 +58,30 @@ class Zone:
                     min = int(data[1])
                 elif data[0] == "max":
                     max = int(data[1])
+                elif data[0] == "img":
+                    img_list.append(data[2])
                 elif data[0] == "map":
                     # Map is rest of file
                     line = FILE.readline()
-                    i = 0 # Row number of data
-                    while line:
+                    for i in range(self.num_tiles_h): # Row number of data
                         data = line.split()
-                        for j in range(len(data)): # Column number of data
+                        for j in range(self.num_tiles_w): # Column number of data
                             tile = data[j]
                             # Determine tile type
                             if tile[0] == "S":
-                                self.map[j][i] = StaticTile(j * TILE_SIZE, i * TILE_SIZE)
+                                tile_s = StaticTile(j * TILE_SIZE, i * TILE_SIZE)
+                                img_index = int(tile[1])
+                                if img_index:
+                                    tile_s.load_img(img_list[img_index])
+                                if tile[2] == "?":
+                                    # Randomize value given by min, max
+                                    tile_s.value = random.randint(min, max)
+                                else:
+                                    tile_s.value = int(tile[2])
+
+                            self.map[j][i] = tile_s
 
                         line = FILE.readline()
-                        i += 1
 
                 line = FILE.readline()
 
