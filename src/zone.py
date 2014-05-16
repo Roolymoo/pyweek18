@@ -37,9 +37,28 @@ class Zone:
 
     def load(self, ZONE_N):
         '''(Zone, str) -> NoneType
-        Loads Zone from Zone given in ZONE_N. Assumes success. See .txt file
-        about how to make maps for this method.'''
-        # TODO - make this make sense to people other than Lucas
+        Loads Zone from Zone given in ZONE_N. Assumes success. Format for
+        map files:
+
+        min <int_value>
+        max <int_value>
+        img <index> <img_name>
+        ...
+        map
+        XYZ ...
+        ...
+        
+        min, max - optional entries to specific inclusive range for randomly
+                   generated integers for tile values, which is used if given
+                   a ? character
+        img      - optional entry or entries to specify images for tiles
+                   (images are not required by tiles). <img_name> is added to
+                   a list, and <index> corresponds with the index in the list.
+        map      - an array of tile entries, which are XYZ, separated by spaces.
+                   X is the type of tile to be loaded: S for StaticTile. Y is
+                   the img index to used, where 0 means no img. Z is the value
+                   to be given to the tile, where ? means a random value
+                   generated using min, max'''
         TILE_SIZE = get_tile_size()
 
         # Seed random in case random values are to be generated
@@ -47,9 +66,9 @@ class Zone:
 
         PATH = os.path.join("data", "zone", ZONE_N)
         with open(PATH) as FILE:
-            min = None # For tile value rand generation of ? supplied for tile
+            min = None
             max = None
-            img_list = [None] # 0 is given to use no img
+            img_list = [None] # None there for use of 0 for no img
 
             line = FILE.readline()
             while line:
