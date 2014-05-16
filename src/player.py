@@ -53,9 +53,6 @@ class Player:
         # Render img if there is one - there better be one
         if self.img:
             window.blit(self.img, self.rect)
-        # Render value text
-        self.rect = Rect(X, Y, SIZE, SIZE)
-        window.blit(SURFACE, (self.rect.x + PADDING_W, self.rect.y + PADDING_H))
 
     def move(self, direction, zone, window):
         '''(Zone, str, Zone, Surface) -> NoneType
@@ -67,13 +64,17 @@ class Player:
 
         #find the new coordinates
         if (direction == "LEFT"):
-            new_x -= 1
+            if new_x != 0:
+                new_x -= 1
         elif (direction == "RIGHT"):
-            new_x += 1
+            if new_x != zone.num_tiles_w - 1:
+                new_x += 1
         elif (direction == "UP"):
-            new_y -= 1
+            if new_y != 0:
+                new_y -= 1
         elif (direction == "DOWN"):
-            new_y += 1
+            if new_y != zone.num_tiles_h - 1:
+                new_y += 1
         else:
             return
 
