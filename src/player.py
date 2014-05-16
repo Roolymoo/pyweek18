@@ -112,8 +112,8 @@ class Player:
             self.x = new_x
             self.y = new_y
 
-        self.update_rect()
         new_tile.render(window)
 
+        self.update_rect()
         self.render(window)
 

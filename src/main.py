@@ -49,6 +49,7 @@ def main():
                     test_zone.move_player("UP", window)
                 elif event.key == pygame.K_DOWN:
                     test_zone.move_player("DOWN", window)
+                display.flip()
     pygame.quit()
 
     return 0
