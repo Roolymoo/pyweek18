@@ -15,8 +15,10 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 ##############################################################################
 
+import os.path
 from pygame import Rect, image
 from globals import get_tile_size
+from img import load_img
 
 
 class Player:
@@ -30,14 +32,14 @@ class Player:
         self.y = Y
         self.rect = Rect(X, Y, SIZE, SIZE)
         self.img = None
-        self.value = 0
+        self.sum = 0
 
-    def load_img(self, IMG_PATH):
+    def load_img(self, IMG_N):
         '''(Tile, str) -> NoneType
-        Loads img given by IMG_PATH into self.img as Surface. Assumes
-        IMG_PATH valid.
+        Loads img given by IMG_N into self.img as Surface. Assumes
+        IMG_N valid.
         '''
-        self.img = image.load(IMG_PATH)
+        self.img = load_img(IMG_N)
 
     def render(self, window):
         '''(Zone, Surface) -> NoneType
@@ -82,7 +84,7 @@ class Player:
             return
 
         elif (new_tile.trap):
-            self.value += new_tile.value
+            self.sum += new_tile.value
 
             #Remove the trap and it is now a normal floor tile
             new_tile.trap = False

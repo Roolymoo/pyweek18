@@ -18,6 +18,7 @@
 from pygame import Rect, image
 from pygame.font import Font
 from globals import get_tile_size
+from img import load_img
 
 
 class Tile:
@@ -34,11 +35,11 @@ class Tile:
         self.trap = False
         self.trapimg = None
 
-    def load_img(self, IMG_PATH):
+    def load_img(self, IMG_N):
         '''(Tile, str) -> NoneType
-        Loads img given by IMG_PATH into self.img as Surface. Assumes
-        IMG_PATH valid.'''
-        self.img = image.load(IMG_PATH)
+        Loads img given by IMG_N into self.img as Surface. Assumes
+        IMG_N valid.'''
+        self.img = load_img(IMG_N)
 
 
 class StaticTile(Tile):
