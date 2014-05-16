@@ -15,11 +15,12 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 ##############################################################################
 
+from argparse import ArgumentParser
 import pygame
 from pygame import display
 from pygame.locals import QUIT
 from globals import get_window_dim
-from testzone import get_test_zone2
+from zone import Zone
 
 
 def main():
@@ -30,7 +31,17 @@ def main():
 
     window = display.set_mode((WINDOW_W, WINDOW_H))
 
-    test_zone = get_test_zone2()
+    # Set up arg parser to get the zone
+    arg_parser = ArgumentParser()
+    # Add the zone argument
+    arg_parser.add_argument("zone", help="the zone to play, relative to data/zone")
+    # Get the arg
+    args = arg_parser.parse_args()
+
+    ZONE = args.zone
+
+    test_zone = Zone()
+    test_zone.load(ZONE)
     test_zone.render(window)
 
     display.flip()
