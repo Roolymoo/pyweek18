@@ -40,7 +40,15 @@ def main():
         for event in pygame.event.get():
             if event.type == QUIT:
                 running = False
-
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    test_zone.move_player("LEFT", window)
+                elif event.key == pygame.K_RIGHT:
+                    test_zone.move_player("RIGHT", window)
+                elif event.key == pygame.K_UP:
+                    test_zone.move_player("UP", window)
+                elif event.key == pygame.K_DOWN:
+                    test_zone.move_player("DOWN", window)
     pygame.quit()
 
     return 0

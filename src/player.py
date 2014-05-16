@@ -26,12 +26,11 @@ class Player:
         '''(Player, int, int) -> NoneType
         (X,Y) are the coordinates (in tiles) of the player
         '''
-        SIZE = get_tile_size()
-
         self.x = X
         self.y = Y
-        self.rect = Rect(X, Y, SIZE, SIZE)
-        self.img = None
+        self.rect = None
+        self.update_rect()
+        self.img = load_img("Bob.png")
         self.sum = 0
 
     def load_img(self, IMG_N):
@@ -62,7 +61,14 @@ class Player:
         self.sum += val
         if (self.sum > 155) or (self.sum < -156):
             #you die here
-            break
+            return
+
+    def update_rect(self):
+        '''(Player) -> NoneType
+        Updates the location of self.rect.
+        '''
+        SIZE = get_tile_size()
+        self.rect = Rect(self.x * SIZE, self.y * SIZE, SIZE, SIZE)
 
     def move(self, direction, zone, window):
         '''(Player, str, Zone, Surface) -> NoneType
@@ -72,6 +78,7 @@ class Player:
         new_x = self.x
         new_y = self.y
 
+        zone.map[new_x][new_y].render(window)
         #find the new coordinates
         if (direction == "LEFT"):
             if new_x != 0:
@@ -105,6 +112,8 @@ class Player:
             self.x = new_x
             self.y = new_y
 
+        self.update_rect()
         new_tile.render(window)
+
         self.render(window)
 

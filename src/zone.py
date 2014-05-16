@@ -20,7 +20,7 @@ import random
 from pygame import Rect, draw
 from globals import get_window_dim, get_tile_size, get_zone_dim
 from tile import Tile
-
+from player import Player
 
 def _get_zone_path(ZONE_N):
     '''(str) -> str
@@ -42,6 +42,7 @@ class Zone:
         self.num_tiles_h = NUM_TILES_H
         self.map = [[Tile(i * 50, j * 50) for j in range(NUM_TILES_H)] \
                 for i in range(NUM_TILES_W)]
+        self.player = None
 
     def load(self, ZONE_N):
         '''(Zone, str) -> NoneType
@@ -55,7 +56,7 @@ class Zone:
         map
         XYZ ...
         ...
-        
+
         min, max - optional entries to specific inclusive range for randomly
                    generated integers for tile values, which is used if given
                    a ? character
@@ -112,6 +113,14 @@ class Zone:
 
                 line = FILE.readline()
 
+        self.player = Player(9,2)
+
+    def move_player(self, direction, window):
+        '''(Zone, str, Surface) -> NoneType
+        Attempts to moves the player in direction.
+        '''
+        self.player.move(direction, self, window)
+
     def render(self, window):
         '''(Zone, Surface) -> NoneType
         Renders all Tiles in self.map.'''
@@ -129,3 +138,7 @@ class Zone:
                 draw.line(window, WHITE, (0, j * TILE_SIZE), (LINE_WIDTH, j * TILE_SIZE))
                 # Draw the tile
                 self.map[i][j].render(window)
+
+        # Draws the player as well
+        if (self.player):
+            self.player.render(window)
