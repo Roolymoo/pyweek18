@@ -21,6 +21,14 @@ from pygame import Rect, draw
 from globals import get_window_dim, get_tile_size, get_zone_dim
 from tile import StaticTile
 
+
+def _get_zone_path(ZONE_N):
+    '''(str) -> str
+    Returns path of ZONE_N file relative to calling of main.py.'''
+    ZONE_DIR = os.path.join("data", "zone")
+    return os.path.join(ZONE_DIR, ZONE_N)
+
+
 class Zone:
     def __init__(self):
         '''(Zone) -> NoneType'''
@@ -64,7 +72,7 @@ class Zone:
         # Seed random in case random values are to be generated
         random.seed()
 
-        PATH = os.path.join("data", "zone", ZONE_N)
+        PATH = _get_zone_path(ZONE_N)
         with open(PATH) as FILE:
             min = None
             max = None
