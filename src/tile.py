@@ -55,9 +55,9 @@ class StaticTile(Tile):
         self.trap = True
 
         if (type == "FIRE"):
-            self.trapimg = "Fire2.png"
+            self.trapimg = load_img("Fire2.png")
         else:
-            self.trapimg = "Fire2.png"
+            self.trapimg = load_img("Fire2.png")
 
     def render(self, window):
         '''(StaticTile, Surface) -> NoneType
