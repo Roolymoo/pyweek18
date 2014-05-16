@@ -26,11 +26,11 @@ class Player:
         '''
         SIZE = get_tile_size()
 
-        self.x = X;
-        self.y = Y;
+        self.x = X
+        self.y = Y
         self.rect = Rect(X, Y, SIZE, SIZE)
         self.img = None
-        self.value = 0;
+        self.value = 0
 
     def load_img(self, IMG_PATH):
         '''(Tile, str) -> NoneType
