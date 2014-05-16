@@ -55,7 +55,7 @@ class Player:
         the game is over.
         '''
         self.sum += val
-        if (self.sum > 155) or (self.sum < -156):
+        if (self.sum > 127) or (self.sum < -128):
             #you die hereg
             return
 
@@ -104,10 +104,8 @@ class Player:
             #Remove the trap and it is now a normal floor tile
             new_tile.trap = False
             new_tile.trapimg = None
-
-        else:
-            self.x = new_x
-            self.y = new_y
+        self.x = new_x
+        self.y = new_y
         new_tile.render(window)
 
         self.update_rect()

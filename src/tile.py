@@ -33,6 +33,7 @@ class Tile:
         self.trap = False
         self.trapimg = None
 
+    #---------------------------------------obsolete
     def set_trap(self, type):
         '''(StaticTile, Surface) -> NoneType
         '''
@@ -46,12 +47,19 @@ class Tile:
             self.trapimg = load_img("Poop.png")
         else:
             self.trapimg = load_img("Poop.png")
+    #---------------------------------------------------
 
     def load_img(self, IMG_N):
         '''(Tile, str) -> NoneType
         Loads img given by IMG_N into self.img as Surface. Assumes
         IMG_N valid.'''
         self.img = load_img(IMG_N)
+
+    def load_trapimg(self, IMG):
+        '''(Tile, str) -> NoneType
+        Load IMG into self.trapimg. Assumes we want a trap here.
+        '''
+        self.trapimg = load_img(IMG)
 
     def render(self, window):
         '''(StaticTile, Surface) -> NoneType

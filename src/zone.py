@@ -110,10 +110,6 @@ class Zone:
                                 #2 is floor - not sure if we need this anymore
                                 if img_index == 1:
                                     tile_s.obstacle = True
-                                elif img_index == 2:
-                                    print("Im a princess!")
-                                else:
-                                    tile_s.set_trap("FIRE")
                                 tile_s.load_img(img_list[img_index])
 
                             #gives the tile a value
@@ -128,8 +124,9 @@ class Zone:
                                 pass
                             elif tile[0] == "1": # Trap
                                 tile_s.trap = True
-                                trapimg_index = int(tile[3])
-                                tile_s.trapimg = load_img(img_list[trapimg_index])
+                                #load both the normal floor image and the trap image
+                                tile_s.load_img(img_list[2]) #2 always floor
+                                tile_s.load_trapimg(img_list[3])
 
                             self.map[j][i] = tile_s
 
