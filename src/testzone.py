@@ -17,7 +17,7 @@
 
 import random
 import os.path
-from zone import StaticTile, Zone
+from zone import Tile, Zone
 
 
 def get_test_zone1():
