@@ -60,7 +60,7 @@ class Player:
         '''
         self.sum += val
         if (self.sum > 155) or (self.sum < -156):
-            #you die here
+            #you die hereg
             return
 
     def update_rect(self):
