@@ -21,6 +21,9 @@ from pygame import Rect, draw
 from globals import get_window_dim, get_tile_size, get_zone_dim
 from tile import Tile
 from player import Player
+from img import load_img
+
+
 
 def _get_zone_path(ZONE_N):
     '''(str) -> str
@@ -63,11 +66,14 @@ class Zone:
         img      - optional entry or entries to specify images for tiles
                    (images are not required by tiles). <img_name> is added to
                    a list, and <index> corresponds with the index in the list.
-        map      - an array of tile entries, which are XYZ, separated by spaces.
-                   X is the type of tile to be loaded: S for StaticTile. Y is
-                   the img index to used, where 0 means no img. Z is the value
+        map      - an array of tile entries, which are XYZU, separated by spaces.
+                   X is the type of tile to be loaded: 0 for default tile, 1
+                   for trap. Y is
+                   the img index for the primary img to be used, where 0 means
+                   no img. Z is the value
                    to be given to the tile, where ? means a random value
-                   generated using min, max'''
+                   generated using min, max. U is the secondary img to be used, 0
+                   for no img.'''
         TILE_SIZE = get_tile_size()
 
         # Seed random in case random values are to be generated
@@ -95,17 +101,24 @@ class Zone:
                         data = line.split()
                         for j in range(self.num_tiles_w): # Column number of data
                             tile = data[j]
+
+                            tile_s = Tile(j * TILE_SIZE, i * TILE_SIZE)
+                            img_index = int(tile[1])
+                            if img_index:
+                                tile_s.load_img(img_list[img_index])
+                            if tile[2] == "?":
+                                # Randomize value given by min, max
+                                tile_s.value = random.randint(min, max)
+                            else:
+                                tile_s.value = int(tile[2])
+
                             # Determine tile type
-                            if tile[0] == "S": # FIX THIS ####################
-                                tile_s = Tile(j * TILE_SIZE, i * TILE_SIZE)
-                                img_index = int(tile[1])
-                                if img_index:
-                                    tile_s.load_img(img_list[img_index])
-                                if tile[2] == "?":
-                                    # Randomize value given by min, max
-                                    tile_s.value = random.randint(min, max)
-                                else:
-                                    tile_s.value = int(tile[2])
+                            if tile[0] == "0": # Normal
+                                pass
+                            elif tile[0] == "1": # Trap
+                                tile_s.trap = True
+                                trapimg_index = int(tile[3])
+                                tile_s.trapimg = load_img(img_list[trapimg_index])
 
                             self.map[j][i] = tile_s
 

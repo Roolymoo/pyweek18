@@ -33,6 +33,7 @@ class Tile:
         self.obstacle = False
         self.trap = False
         self.trapimg = None
+        self.trap_active = False
 
     def set_trap(self, type):
         '''(StaticTile, Surface) -> NoneType
@@ -52,8 +53,8 @@ class Tile:
 
     def render(self, window):
         '''(StaticTile, Surface) -> NoneType
-        Renders self.img if not None, then renders self.value in text on top
-        if self.value is not None.'''
+        Renders self.img if not None, then renders the trap img if not None,
+        then renders self.value in text on top if self.value is not None.'''
         PADDING_W = 20
         PADDING_H = 20
         FONT_SIZE = 20
@@ -64,7 +65,7 @@ class Tile:
             window.blit(self.img, self.rect)
 
         # Then render the trap
-        if self.trapimg:
+        if self.trap_active:
             window.blit(self.trapimg, self.rect)
 
         # Prepare text for value
