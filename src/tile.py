@@ -22,7 +22,6 @@ from img import load_img
 
 
 class Tile:
-    '''Base object for inheritance for tiles actually used in game.'''
     def __init__(self, X, Y):
         '''(Tile, int, int) -> NoneType
         (X,Y) top-left coordinate of tile.'''
@@ -35,20 +34,6 @@ class Tile:
         self.trap = False
         self.trapimg = None
 
-    def load_img(self, IMG_N):
-        '''(Tile, str) -> NoneType
-        Loads img given by IMG_N into self.img as Surface. Assumes
-        IMG_N valid.'''
-        self.img = load_img(IMG_N)
-
-
-class StaticTile(Tile):
-    '''For static entities, such as walls or floors.'''
-    def __init__(self, X, Y):
-        '''(Tile, int, int) -> NoneType
-        (X,Y) top-left coordinate of tile.'''
-        Tile.__init__(self, X, Y)
-
     def set_trap(self, type):
         '''(StaticTile, Surface) -> NoneType
         '''
@@ -58,6 +43,12 @@ class StaticTile(Tile):
             self.trapimg = load_img("Fire2.png")
         else:
             self.trapimg = load_img("Fire2.png")
+
+    def load_img(self, IMG_N):
+        '''(Tile, str) -> NoneType
+        Loads img given by IMG_N into self.img as Surface. Assumes
+        IMG_N valid.'''
+        self.img = load_img(IMG_N)
 
     def render(self, window):
         '''(StaticTile, Surface) -> NoneType

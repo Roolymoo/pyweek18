@@ -19,7 +19,7 @@ import os.path
 import random
 from pygame import Rect, draw
 from globals import get_window_dim, get_tile_size, get_zone_dim
-from tile import StaticTile
+from tile import Tile
 
 
 def _get_zone_path(ZONE_N):
@@ -40,7 +40,7 @@ class Zone:
         self.rect = Rect(0, 0, WIDTH, HEIGHT)
         self.num_tiles_w = NUM_TILES_W
         self.num_tiles_h = NUM_TILES_H
-        self.map = [[StaticTile(i * 50, j * 50) for j in range(NUM_TILES_H)] \
+        self.map = [[Tile(i * 50, j * 50) for j in range(NUM_TILES_H)] \
                 for i in range(NUM_TILES_W)]
 
     def load(self, ZONE_N):
@@ -95,8 +95,8 @@ class Zone:
                         for j in range(self.num_tiles_w): # Column number of data
                             tile = data[j]
                             # Determine tile type
-                            if tile[0] == "S":
-                                tile_s = StaticTile(j * TILE_SIZE, i * TILE_SIZE)
+                            if tile[0] == "S": # FIX THIS ####################
+                                tile_s = Tile(j * TILE_SIZE, i * TILE_SIZE)
                                 img_index = int(tile[1])
                                 if img_index:
                                     tile_s.load_img(img_list[img_index])
