@@ -149,9 +149,6 @@ class Zone:
         '''(Zone, Surface) -> NoneType
         Renders all Tiles in self.map.'''
         WHITE = (255, 255, 255)
-        LINE_WIDTH = self.rect.w
-        LINE_HEIGHT = self.rect.h
-        TILE_SIZE = get_tile_size()
 
         # Draw tiles and lines defining tiles
         for i in range(self.num_tiles_w):
