@@ -54,8 +54,18 @@ class Player:
         if self.img:
             window.blit(self.img, self.rect)
 
+    def change_sum(self, val, zone, window):
+        '''(Player, int, Zone, window) -> NoneType
+        Attempts to change self.sum; if the player goes over 155 or under -156,
+        the game is over.
+        '''
+        self.sum += val
+        if (self.sum > 155) or (self.sum < -156):
+            #you die here
+            break
+
     def move(self, direction, zone, window):
-        '''(Zone, str, Zone, Surface) -> NoneType
+        '''(Player, str, Zone, Surface) -> NoneType
         Attempts to move the player in the direction given (in Zone) and then
         redraws player if necessary.
         '''
@@ -85,7 +95,7 @@ class Player:
             return
 
         elif (new_tile.trap):
-            self.sum += new_tile.value
+            self.change_sum(new_tile.value, zone, window)
 
             #Remove the trap and it is now a normal floor tile
             new_tile.trap = False
