@@ -32,6 +32,8 @@ class Tile:
         self.obstacle = False
         self.trap = False
         self.trapimg = None
+        self.key = False
+        self.key_img = None
 
     #---------------------------------------obsolete
     def set_trap(self, type):
@@ -77,6 +79,10 @@ class Tile:
         # Then render the trap
         if self.trap:
             window.blit(self.trapimg, self.rect)
+
+        # Render the key if there is one
+        if self.key:
+            window.blit(self.key_img, self.rect)
 
         # Prepare text for value
         if self.value != None:
