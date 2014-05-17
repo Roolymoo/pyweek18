@@ -124,7 +124,8 @@ class Zone:
                                 tile_s.trap = True
                                 tile_s.load_trapimg(img_list[sec_img_index])
                             elif tile[0] == "2": # Wall
-                                tile_s.obstacle = True
+                                tile_s.wall = True
+                                tile_s.wall_img = load_img(img_list[sec_img_index])
                             elif tile[0] == "3": # Key
                                 tile_s.key = True
                                 tile_s.key_img = load_img(img_list[sec_img_index])
@@ -138,7 +139,7 @@ class Zone:
 
                 line = FILE.readline()
 
-        self.player = Player(9,2)
+        self.player = Player(1, 1) # Starting coords
 
     def move_player(self, direction, window):
         '''(Zone, str, Surface) -> NoneType

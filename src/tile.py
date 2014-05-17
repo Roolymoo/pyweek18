@@ -29,7 +29,8 @@ class Tile:
         self.rect = Rect(X, Y, SIZE, SIZE)
         self.img = None
         self.value = None # In case text value should not be rendered
-        self.obstacle = False
+        self.wall = False
+        self.wall_img = None
         self.trap = False
         self.trapimg = None
         self.key = False
@@ -81,6 +82,9 @@ class Tile:
         # Then render the trap
         if self.trap:
             window.blit(self.trapimg, self.rect)
+
+        if self.wall:
+            window.blit(self.wall_img, self.rect)
 
         # Render the key if there is one
         if self.key:

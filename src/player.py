@@ -94,7 +94,7 @@ class Player:
         new_tile = zone.map[new_x][new_y]
 
         #in the case of an obstacle (wall, lock with no key), no need for further action
-        if (new_tile.obstacle):
+        if new_tile.wall:
             return
         elif new_tile.lock and (self.keys == 0):
             return
