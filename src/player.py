@@ -93,8 +93,10 @@ class Player:
 
         new_tile = zone.map[new_x][new_y]
 
-        #in the case of an obstacle, no need for further action
+        #in the case of an obstacle (wall, lock with no key), no need for further action
         if (new_tile.obstacle):
+            return
+        elif new_tile.lock and (self.keys == 0):
             return
 
         #otherwise, erase the current space and move to new space
@@ -108,6 +110,13 @@ class Player:
             self.keys += 1
             new_tile.key = False
             new_tile.key_img = None
+        elif new_tile.lock:
+            # Player has > 0 keys because already checked if only 0
+            # Use a key to open the lock
+            self.keys -= 1
+            # Remove the lock
+            new_tile.lock = False
+            new_tile.lock_img = None
         self.x = new_x
         self.y = new_y
         new_tile.render(window)

@@ -34,6 +34,8 @@ class Tile:
         self.trapimg = None
         self.key = False
         self.key_img = None
+        self.lock = False
+        self.lock_img = None
 
     #---------------------------------------obsolete
     def set_trap(self, type):
@@ -83,6 +85,10 @@ class Tile:
         # Render the key if there is one
         if self.key:
             window.blit(self.key_img, self.rect)
+
+        # Render the lock if there is one
+        if self.lock:
+            window.blit(self.lock_img, self.rect)
 
         # Prepare text for value
         if self.value != None:
