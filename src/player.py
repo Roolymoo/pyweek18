@@ -99,8 +99,6 @@ class Player:
         #otherwise, erase the current space and move to new space
         zone.map[self.x][self.y].render(window)
         if (new_tile.trap):
-            self.change_sum(new_tile.value, zone, window)
-
             #Remove the trap and it is now a normal floor tile
             new_tile.trap = False
             new_tile.trapimg = None
@@ -110,4 +108,5 @@ class Player:
 
         self.update_rect()
         self.render(window)
-
+        self.change_sum(new_tile.value, zone, window)
+        print(self.sum)
