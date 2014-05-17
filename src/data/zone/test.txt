@@ -1,5 +1,6 @@
 min -5
 max 5
+start 1 1
 img 1 Wall2.png
 img 2 Stone2.png
 img 3 Fire1.png

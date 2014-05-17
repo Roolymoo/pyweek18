@@ -92,6 +92,8 @@ class Zone:
                     min = int(data[1])
                 elif data[0] == "max":
                     max = int(data[1])
+                elif data[0] == "start":
+                    coord = (int(data[1]), int(data[2]))
                 elif data[0] == "img":
                     img_list.append(data[2])
                 elif data[0] == "map":
@@ -142,7 +144,7 @@ class Zone:
 
                 line = FILE.readline()
 
-        self.player = Player(1, 1) # Starting coords
+        self.player = Player(*coord) # Starting coords
 
     def move_player(self, direction, window):
         '''(Zone, str, Surface) -> NoneType
