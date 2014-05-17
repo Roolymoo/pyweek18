@@ -71,9 +71,9 @@ def main():
                 WHITE = (255, 255, 255)
                 BLACK = (0, 0, 0)
                 FONT = Font(None, FONT_SIZE)
-                X1, Y1 = 50, 100
-                X2, Y2 = 50, 150
-                X3, Y3 = 50, 250
+                X1, Y1 = 40, 100
+                X2, Y2 = 40, 150
+                X3, Y3 = 40, 250
                 # Check for underflow or overflow
                 if zone.player.sum < -128:
                     status = "UNDERFLOW"
@@ -92,7 +92,8 @@ def main():
                 display.flip()
 
                 # Wait for a click
-                new_event = pygame.event.wait()
+                new_event = pygame.event.wait() # Some issue with other events getting in
+                                                # way, but it seems to work well enough
                 while new_event.type != MOUSEBUTTONDOWN:
                     new_event = pygame.event.wait()
 

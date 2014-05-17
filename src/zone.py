@@ -66,7 +66,7 @@ class Zone:
         img      - optional entry or entries to specify images for tiles
                    (images are not required by tiles). <img_name> is added to
                    a list, and <index> corresponds with the index in the list.
-        map      - an array of tile entries, which are XYZU, separated by spaces.
+        map      - an array of tile entries, which are X,Y,Z,U , separated by spaces.
                    X is the type of tile to be loaded: 0 for default tile, 1
                    for trap, 2 is wall, 3 is key, 4 is lock. Y is
                    the img index for the primary img to be used, where 0 means
@@ -100,7 +100,7 @@ class Zone:
                     for i in range(self.num_tiles_h): # Row number of data
                         data = line.split()
                         for j in range(self.num_tiles_w): # Column number of data
-                            tile = data[j]
+                            tile = data[j].split(",")
 
                             tile_s = Tile(j * TILE_SIZE, i * TILE_SIZE)
                             img_index = int(tile[1])
