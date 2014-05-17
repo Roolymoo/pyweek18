@@ -102,17 +102,18 @@ class Player:
 
         #otherwise, erase the current space and move to new space
         zone.map[self.x][self.y].render(window)
+        new_value = new_tile.value # For updating (eg traps, keys)
         if (new_tile.trap):
             #Remove the trap and it is now a normal floor tile
             new_tile.trap = False
             new_tile.trapimg = None
-            new_tile.value = 0
+            new_value = 0
         elif new_tile.key:
             # Remove the key, give it to player
             self.keys += 1
             new_tile.key = False
             new_tile.key_img = None
-            new_tile.value = 0
+            new_value = 0
         elif new_tile.lock:
             # Player has > 0 keys because already checked if only 0
             # Use a key to open the lock
@@ -137,3 +138,5 @@ class Player:
         self.render(window)
         if update_value:
             self.change_sum(new_tile.value, zone, window)
+        # Update value
+        new_tile.value = new_value
