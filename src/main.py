@@ -22,6 +22,7 @@ from pygame.locals import QUIT
 from globals import get_window_dim
 from zone import Zone
 from sumtracker import SumTracker
+from keystracker import KeysTracker
 
 
 def main():
@@ -45,9 +46,11 @@ def main():
     test_zone.load(ZONE) # This loads the player
 
     sum_tracker = SumTracker(test_zone.player)
+    keys_tracker = KeysTracker(test_zone.player, sum_tracker) # Put it below sum_tracker
 
     test_zone.render(window)
     sum_tracker.render(window)
+    keys_tracker.render(window)
 
     display.flip()
 
@@ -65,8 +68,10 @@ def main():
                     test_zone.move_player("UP", window)
                 elif event.key == pygame.K_DOWN:
                     test_zone.move_player("DOWN", window)
-                # Update sum tracker
+                # Update trackers
                 sum_tracker.render(window)
+                keys_tracker.render(window)
+
                 display.flip()
     pygame.quit()
 
