@@ -17,9 +17,9 @@
 
 from argparse import ArgumentParser
 import pygame
-from pygame import display
+from pygame import display, time
 from pygame.locals import QUIT
-from globals import get_window_dim
+from globals import get_window_dim, get_fps
 from zone import Zone
 from sumtracker import SumTracker
 from keystracker import KeysTracker
@@ -30,6 +30,9 @@ def main():
     WINDOW_W, WINDOW_H = get_window_dim()
 
     pygame.init()
+
+    fps_clock = time.Clock()
+    FPS = get_fps()
 
     window = display.set_mode((WINDOW_W, WINDOW_H))
 
@@ -73,6 +76,8 @@ def main():
                 keys_tracker.render(window)
 
                 display.flip()
+
+        fps_clock.tick(FPS)
     pygame.quit()
 
 if __name__ == "__main__":

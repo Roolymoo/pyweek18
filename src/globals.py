@@ -43,3 +43,8 @@ def get_sumtracker_dim():
     HEIGHT = 50
 
     return (WINDOW_W - ZONE_W, HEIGHT)
+
+def get_fps():
+    '''(NoneType) -> int'''
+    FPS = 20
+    return 20
