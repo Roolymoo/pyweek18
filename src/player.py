@@ -120,10 +120,18 @@ class Player:
             new_tile.lock_img = None
         elif new_tile.exit:
             self.win = True
+
+        if (new_x == self.x) and (new_y == self.y):
+            # Dont update value
+            update_value = False
+        else:
+            update_value = True
+
         self.x = new_x
         self.y = new_y
         new_tile.render(window)
 
         self.update_rect()
         self.render(window)
-        self.change_sum(new_tile.value, zone, window)
+        if update_value:
+            self.change_sum(new_tile.value, zone, window)
