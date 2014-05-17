@@ -17,8 +17,9 @@
 
 from argparse import ArgumentParser
 import pygame
-from pygame import display, time
-from pygame.locals import QUIT
+from pygame import display, time, Rect
+from pygame.font import Font
+from pygame.locals import QUIT, MOUSEBUTTONDOWN
 from globals import get_window_dim, get_fps
 from zone import Zone
 from sumtracker import SumTracker
@@ -45,13 +46,13 @@ def main():
 
     ZONE = args.zone
 
-    test_zone = Zone()
-    test_zone.load(ZONE) # This loads the player
+    zone = Zone()
+    zone.load(ZONE) # This loads the player
 
-    sum_tracker = SumTracker(test_zone.player)
-    keys_tracker = KeysTracker(test_zone.player, sum_tracker) # Put it below sum_tracker
+    sum_tracker = SumTracker(zone.player)
+    keys_tracker = KeysTracker(zone.player, sum_tracker) # Put it below sum_tracker
 
-    test_zone.render(window)
+    zone.render(window)
     sum_tracker.render(window)
     keys_tracker.render(window)
 
@@ -62,15 +63,50 @@ def main():
         for event in pygame.event.get():
             if event.type == QUIT:
                 running = False
+            # Check for game over
+            elif (zone.player.sum < -128) or (zone.player.sum > 127):
+                # Game over
+                # Render text to screen saying game is over
+                FONT_SIZE = 50
+                WHITE = (255, 255, 255)
+                BLACK = (0, 0, 0)
+                FONT = Font(None, FONT_SIZE)
+                X1, Y1 = 50, 100
+                X2, Y2 = 50, 150
+                X3, Y3 = 50, 250
+                # Check for underflow or overflow
+                if zone.player.sum < -128:
+                    status = "UNDERFLOW"
+                else:
+                    status = "OVERFLOW"
+                FONT_S1 = FONT.render("GAMEOVER!", False, WHITE)
+                FONT_S2 = FONT.render("YOU CREATED AN {}!".format(status), False, WHITE)
+                FONT_S3 = FONT.render("Click to exit...", False, WHITE)
+                # Black out window
+                window.fill(BLACK)
+                # Render text
+                window.blit(FONT_S1, (X1, Y1))
+                window.blit(FONT_S2, (X2, Y2))
+                window.blit(FONT_S3, (X3, Y3))
+
+                display.flip()
+
+                # Wait for a click
+                new_event = pygame.event.wait()
+                while new_event.type != MOUSEBUTTONDOWN:
+                    new_event = pygame.event.wait()
+
+                running = False
+
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
-                    test_zone.move_player("LEFT", window)
+                    zone.move_player("LEFT", window)
                 elif event.key == pygame.K_RIGHT:
-                    test_zone.move_player("RIGHT", window)
+                    zone.move_player("RIGHT", window)
                 elif event.key == pygame.K_UP:
-                    test_zone.move_player("UP", window)
+                    zone.move_player("UP", window)
                 elif event.key == pygame.K_DOWN:
-                    test_zone.move_player("DOWN", window)
+                    zone.move_player("DOWN", window)
                 # Update trackers
                 sum_tracker.render(window)
                 keys_tracker.render(window)
