@@ -68,7 +68,7 @@ class Zone:
                    a list, and <index> corresponds with the index in the list.
         map      - an array of tile entries, which are XYZU, separated by spaces.
                    X is the type of tile to be loaded: 0 for default tile, 1
-                   for trap. Y is
+                   for trap, 2 is wall. Y is
                    the img index for the primary img to be used, where 0 means
                    no img. Z is the value
                    to be given to the tile, where ? means a random value
@@ -105,11 +105,8 @@ class Zone:
                             tile_s = Tile(j * TILE_SIZE, i * TILE_SIZE)
                             img_index = int(tile[1])
 
-                            #loads the image of the tile and gets a tile for whatever type
+                            #loads the image of the tile
                             if img_index:
-                                #2 is floor - not sure if we need this anymore
-                                if img_index == 1:
-                                    tile_s.obstacle = True
                                 tile_s.load_img(img_list[img_index])
 
                             #gives the tile a value
@@ -127,6 +124,8 @@ class Zone:
                                 #load both the normal floor image and the trap image
                                 tile_s.load_img(img_list[2]) #2 always floor
                                 tile_s.load_trapimg(img_list[img_index])
+                            elif tile[0] == "2": # Wall
+                                tile_s.obstacle = True
 
                             self.map[j][i] = tile_s
 
