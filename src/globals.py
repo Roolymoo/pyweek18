@@ -34,3 +34,12 @@ def get_zone_dim():
     WINDOW_W, WINDOW_HEIGHT = get_window_dim()
 
     return (WINDOW_W - RIGHT_PADDING_W, WINDOW_HEIGHT)
+
+def get_sumtracker_dim():
+    '''(NoneType) -> tuple
+    Returns (WIDTH, HEIGHT). Dimensions relative to window and zone.'''
+    ZONE_W = get_zone_dim()[0]
+    WINDOW_W = get_window_dim()[0]
+    HEIGHT = 50
+
+    return (WINDOW_W - ZONE_W, HEIGHT)

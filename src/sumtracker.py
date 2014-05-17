@@ -17,7 +17,7 @@
 
 from pygame import Rect
 from pygame.font import Font
-from globals import get_zone_dim
+from globals import get_zone_dim, get_sumtracker_dim
 
 
 class SumTracker:
@@ -27,8 +27,11 @@ class SumTracker:
         PADDING_W = 20
         PADDING_H = 20
 
-        self.x = ZONE_W + PADDING_W
-        self.y = PADDING_H
+        X = ZONE_W + PADDING_W
+        Y = PADDING_H
+        WIDTH, HEIGHT = get_sumtracker_dim()
+
+        self.rect = Rect(X, Y, WIDTH, HEIGHT)
         self.text = "SUM"
         self.player = player
 
@@ -37,10 +40,15 @@ class SumTracker:
         Renders self.player.sum as text, with width, height given by
         generated font.'''
         WHITE = (255, 255, 255)
+        BLACK = (0, 0, 0)
         FONT_SIZE = 20
 
         # Load the font into a Surface
         FONT = Font(None, FONT_SIZE) # Use default font
         SURFACE = FONT.render("{}: {}".format(self.text, self.player.sum), False, WHITE)
+
+        # Clear old sum
+        window.fill(BLACK, self.rect)
+
         # Render the font
-        window.blit(SURFACE, (self.x, self.y))
+        window.blit(SURFACE, self.rect)
