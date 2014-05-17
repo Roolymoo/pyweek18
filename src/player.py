@@ -32,6 +32,7 @@ class Player:
         self.update_rect()
         self.img = load_img("Bob.png")
         self.sum = 0
+        self.keys = 0 # Number of keys in inventory
 
     def load_img(self, IMG_N):
         '''(Tile, str) -> NoneType
@@ -102,6 +103,11 @@ class Player:
             #Remove the trap and it is now a normal floor tile
             new_tile.trap = False
             new_tile.trapimg = None
+        elif new_tile.key:
+            # Remove the key, give it to player
+            self.keys += 1
+            new_tile.key = False
+            new_tile.key_img = None
         self.x = new_x
         self.y = new_y
         new_tile.render(window)
