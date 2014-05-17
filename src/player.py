@@ -33,6 +33,7 @@ class Player:
         self.img = load_img("Bob.png")
         self.sum = 0
         self.keys = 0 # Number of keys in inventory
+        self.win = False # Wins when reaches exit
 
     def load_img(self, IMG_N):
         '''(Tile, str) -> NoneType
@@ -117,6 +118,8 @@ class Player:
             # Remove the lock
             new_tile.lock = False
             new_tile.lock_img = None
+        elif new_tile.exit:
+            self.win = True
         self.x = new_x
         self.y = new_y
         new_tile.render(window)

@@ -63,6 +63,32 @@ def main():
         for event in pygame.event.get():
             if event.type == QUIT:
                 running = False
+            # Check if player won
+            elif zone.player.win:
+                # Render text to screen saying player won
+                FONT_SIZE = 50
+                WHITE = (255, 255, 255)
+                BLACK = (0, 0, 0)
+                FONT = Font(None, FONT_SIZE)
+                X1, Y1 = 40, 100
+                X2, Y2 = 40, 150
+                FONT_S1 = FONT.render("YOU WIN!", False, WHITE)
+                FONT_S2 = FONT.render("Click to exit...", False, WHITE)
+                # Black out window
+                window.fill(BLACK)
+                # Render text
+                window.blit(FONT_S1, (X1, Y1))
+                window.blit(FONT_S2, (X2, Y2))
+                
+                display.flip()
+
+                # Wait for a click
+                new_event = pygame.event.wait() # Some issue with other events getting in
+                                                # way, but it seems to work well enough
+                while new_event.type != MOUSEBUTTONDOWN:
+                    new_event = pygame.event.wait()
+
+                running = False
             # Check for game over
             elif (zone.player.sum < -128) or (zone.player.sum > 127):
                 # Game over

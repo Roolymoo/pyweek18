@@ -68,7 +68,7 @@ class Zone:
                    a list, and <index> corresponds with the index in the list.
         map      - an array of tile entries, which are X,Y,Z,U , separated by spaces.
                    X is the type of tile to be loaded: 0 for default tile, 1
-                   for trap, 2 is wall, 3 is key, 4 is lock. Y is
+                   for trap, 2 is wall, 3 is key, 4 is lock, 5 is exit. Y is
                    the img index for the primary img to be used, where 0 means
                    no img. Z is the value
                    to be given to the tile, where ? means a random value
@@ -132,6 +132,9 @@ class Zone:
                             elif tile[0] == "4": # Lock
                                 tile_s.lock = True
                                 tile_s.lock_img = load_img(img_list[sec_img_index])
+                            elif tile[0] == "5": # Exit
+                                tile_s.exit = True
+                                tile_s.exit_img = load_img(img_list[sec_img_index])
 
                             self.map[j][i] = tile_s
 
