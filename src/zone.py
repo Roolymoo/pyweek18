@@ -104,6 +104,7 @@ class Zone:
 
                             tile_s = Tile(j * TILE_SIZE, i * TILE_SIZE)
                             img_index = int(tile[1])
+                            sec_img_index = int(tile[3])
 
                             #loads the image of the tile
                             if img_index:
@@ -121,9 +122,7 @@ class Zone:
                                 pass
                             elif tile[0] == "1": # Trap
                                 tile_s.trap = True
-                                #load both the normal floor image and the trap image
-                                tile_s.load_img(img_list[2]) #2 always floor
-                                tile_s.load_trapimg(img_list[img_index])
+                                tile_s.load_trapimg(img_list[sec_img_index]) # Trap tile img
                             elif tile[0] == "2": # Wall
                                 tile_s.obstacle = True
 
