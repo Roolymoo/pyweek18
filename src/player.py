@@ -109,4 +109,3 @@ class Player:
         self.update_rect()
         self.render(window)
         self.change_sum(new_tile.value, zone, window)
-        print(self.sum)
