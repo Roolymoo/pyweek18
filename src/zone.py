@@ -126,7 +126,7 @@ class Zone:
                                 tile_s.trap = True
                                 #load both the normal floor image and the trap image
                                 tile_s.load_img(img_list[2]) #2 always floor
-                                tile_s.load_trapimg(img_list[3])
+                                tile_s.load_trapimg(img_list[img_index])
 
                             self.map[j][i] = tile_s
 
