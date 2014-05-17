@@ -106,11 +106,13 @@ class Player:
             #Remove the trap and it is now a normal floor tile
             new_tile.trap = False
             new_tile.trapimg = None
+            new_tile.value = 0
         elif new_tile.key:
             # Remove the key, give it to player
             self.keys += 1
             new_tile.key = False
             new_tile.key_img = None
+            new_tile.value = 0
         elif new_tile.lock:
             # Player has > 0 keys because already checked if only 0
             # Use a key to open the lock
