@@ -25,7 +25,7 @@ from sumtracker import SumTracker
 
 
 def main():
-    '''(NoneType) -> int'''
+    '''(NoneType) -> NoneType'''
     WINDOW_W, WINDOW_H = get_window_dim()
 
     pygame.init()
@@ -70,7 +70,5 @@ def main():
                 display.flip()
     pygame.quit()
 
-    return 0
-
 if __name__ == "__main__":
-    print(main()) # DEBUG ####################################################
+    main()
