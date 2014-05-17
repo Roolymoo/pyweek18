@@ -23,8 +23,8 @@ import os.path
 if __name__ == "__main__":
     random.seed()
 
-    MIN = -10
-    MAX = 10
+    MIN = -20
+    MAX = 20
     NUM_TILES_W = 10
     NUM_TILES_H = 12
 
